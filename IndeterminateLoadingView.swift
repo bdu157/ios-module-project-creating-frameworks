@@ -26,12 +26,13 @@ class IndeterminateLoadingView: UIView, CAAnimationDelegate {
         guard !isAnimating else { return }
         defer { isAnimating = true }
     
-        startAnimation()
+        startAnimation()  //startAnimation for start point - private func below
+        print("startAnimating is getting called")
     }
     
     func stopAnimating() {
         guard isAnimating else { return }
-        
+        print("stopAnimating is being called")
         shouldStopAnimationOnNextCycle = true
     }
     
@@ -76,6 +77,7 @@ class IndeterminateLoadingView: UIView, CAAnimationDelegate {
     // MARK: - CAAnimationDelegate
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        print("animationDidStop is being called")
         guard !shouldStopAnimationOnNextCycle else {
             shouldStopAnimationOnNextCycle = false
             isAnimating = false
@@ -93,7 +95,7 @@ class IndeterminateLoadingView: UIView, CAAnimationDelegate {
             shapeLayer.strokeStart = 0.0
             shapeLayer.strokeEnd = 0.0
             shapeLayer.removeAllAnimations()
-            startAnimation(for: "strokeEnd", timing: .easeIn)
+            startAnimation(for: "strokeEnd", timing: .easeIn) //private func above
         }
     }
     
